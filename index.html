@@ -21,6 +21,19 @@
     </nav>
   </header>
   <div class="site-alert" id="siteAlert" hidden><div class="site-alert-inner"><strong id="siteAlertTitle"></strong><span id="siteAlertMessage"></span></div></div>
+  <div class="consent-backdrop" id="termsGate" hidden>
+    <section class="consent-card" role="dialog" aria-modal="true" aria-labelledby="termsGateTitle">
+      <div class="consent-kicker">WELCOME TO SOLANCE</div>
+      <h2 id="termsGateTitle">Before you start.</h2>
+      <p>Solance is a creator program for building, learning and collaborating. Please review our terms before using the program.</p>
+      <label class="consent-check"><input id="termsAccepted" type="checkbox"><span>I have read and agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a>.</span></label>
+      <button class="button primary" id="acceptTerms" type="button" disabled>Continue to Solance</button>
+    </section>
+  </div>
+  <section class="cookie-banner" id="cookieBanner" hidden aria-label="Cookie preferences">
+    <div><strong>Privacy & cookies</strong><p>We use essential storage to keep the site and account features working. Optional preferences help remember things like your theme. You choose whether to allow them.</p><a href="cookies.html">Cookie policy</a> · <a href="privacy.html">Privacy</a></div>
+    <div class="cookie-actions"><button class="button ghost" id="cookiesEssential" type="button">Essential only</button><button class="button primary" id="cookiesAccept" type="button">Accept optional</button></div>
+  </section>
 
   <main id="top">
     <section class="hero container" id="program">
