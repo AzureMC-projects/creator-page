@@ -15,7 +15,7 @@
       <a class="brand" href="#top"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a>
       <div class="nav-center"><a href="#program">Program</a><a href="#how-it-works">How it works</a><a href="#apply">Apply</a></div>
       <div class="nav-actions">
-        <button class="nav-icon" id="settingsBtn" type="button" aria-label="Open settings">⚙</button>
+        <a class="nav-icon" id="settingsBtn" href="/settings.html" aria-label="Open settings">⚙</a>
         <button class="nav-login" id="signInBtn" type="button">Sign in</button>
       </div>
     </nav>
@@ -25,11 +25,11 @@
   <main id="top">
     <section class="hero container" id="program">
       <div class="hero-copy">
-        <div class="eyebrow"><span class="status-dot"></span> Applications are open</div>
+        <div class="eyebrow" id="applicationStatus"><span class="status-dot"></span> <span id="applicationStatusText">Applications are open</span></div>
         <h1>Build something<br><span>worth making.</span></h1>
         <p class="hero-lead">Solance is a creator program for people with ideas. Bring the project, find the right people, and get the support to take it further.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#apply">Apply to Solance <span>↗</span></a>
+          <a class="button primary" id="heroApplyButton" href="#apply">Apply to Solance <span>↗</span></a>
           <a class="button ghost" href="#how-it-works">Explore the program</a>
         </div>
         <div class="hero-proof"><div class="avatars"><i>✦</i><i>+</i><i>◈</i></div><span>For builders, designers, developers & creators.</span></div>
@@ -74,8 +74,8 @@
           <div class="privacy-pill">🔒 Don't share passwords or private keys.</div>
         </aside>
 
-        <div class="form-panel">
-          <div class="form-heading"><div><span>YOUR APPLICATION</span><h3>Tell us about you.</h3></div><span class="required-note">* Required</span></div>
+        <div class="form-panel" id="applicationPanel">
+          <div class="form-heading"><div><span>YOUR APPLICATION</span><h3 id="applicationHeading">Tell us about you.</h3></div><span class="required-note">* Required</span></div>
           <form name="creator-application" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="creator-form">
             <input type="hidden" name="form-name" value="creator-application">
             <p class="hp"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
