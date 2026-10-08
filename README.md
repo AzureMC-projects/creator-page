@@ -1,6 +1,6 @@
-# Azure Creator Program
+# Solance Creator Program
 
-A static application site for the Azure Creator Program, designed for deployment on Netlify.
+A static application site for the Solance Creator Program, designed for deployment on Netlify.
 
 ## Form submissions
 
