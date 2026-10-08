@@ -153,3 +153,111 @@
   // Avoid scroll-lock bugs when modals close.
   window.addEventListener("pageshow",()=>{document.body.classList.remove("modal-open")});
 })();
+
+(() => {
+  "use strict";
+  const SUPABASE_URL = "https://xedydjesbfvquypyomsm.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_FPeDOtPmcmKOzpSZmRsSJQ_V2PW6Cou";
+  if (!window.supabase?.createClient) return;
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const alertBox = document.querySelector("#siteAlert");
+  const alertTitle = document.querySelector("#siteAlertTitle");
+  const alertMessage = document.querySelector("#siteAlertMessage");
+  const managementTab = document.querySelector("#managementTab");
+  const managementView = document.querySelector("#settingsManagement");
+  const generalView = document.querySelector("#settingsGeneral");
+  const tabs = document.querySelectorAll("[data-settings-tab]");
+  const mgmtMessage = document.querySelector("#managementMessage");
+
+  const showStatus = (row) => {
+    if (!row?.active) {
+      alertBox.hidden = true;
+      return;
+    }
+    alertTitle.textContent = row.title || "Solance update";
+    alertMessage.textContent = row.message || "";
+    alertBox.hidden = false;
+  };
+
+  const loadStatus = async () => {
+    const {data} = await sb.from("site_status").select("active,kind,title,message,updated_at").eq("id","global").maybeSingle();
+    showStatus(data);
+  };
+
+  const checkAdmin = async () => {
+    const {data:{session}} = await sb.auth.getSession();
+    if (!session?.user) {
+      managementTab.hidden = true;
+      return false;
+    }
+    const {data,error} = await sb.rpc("is_management_admin");
+    const admin = !error && data === true;
+    managementTab.hidden = !admin;
+    return admin;
+  };
+
+  tabs.forEach(tab => tab.addEventListener("click", async () => {
+    const target = tab.dataset.settingsTab;
+    tabs.forEach(t => t.classList.toggle("active", t === tab));
+    generalView.hidden = target !== "general";
+    managementView.hidden = target !== "management";
+    if (target === "management") await checkAdmin();
+  }));
+
+  const setMgmtMessage = (text,type="info") => {
+    mgmtMessage.textContent=text;
+    mgmtMessage.dataset.type=type;
+    mgmtMessage.hidden=false;
+  };
+
+  document.querySelector("#publishStatus")?.addEventListener("click", async () => {
+    const kind=document.querySelector("#siteStatusKind").value;
+    const title=document.querySelector("#siteStatusTitle").value.trim() || (kind==="maintenance" ? "Solance is temporarily unavailable" : kind==="bug" ? "We're investigating an issue" : "Solance update");
+    const message=document.querySelector("#siteStatusMessage").value.trim();
+    const {error}=await sb.from("site_status").update({active:true,kind,title,message,updated_at:new Date().toISOString()}).eq("id","global");
+    if(error){setMgmtMessage(error.message,"error");return}
+    setMgmtMessage("Broadcast is live across the site.","success");
+    showStatus({active:true,title,message});
+  });
+
+  document.querySelector("#clearStatus")?.addEventListener("click", async () => {
+    const {error}=await sb.from("site_status").update({active:false,updated_at:new Date().toISOString()}).eq("id","global");
+    if(error){setMgmtMessage(error.message,"error");return}
+    setMgmtMessage("The broadcast has been cleared.","success");
+    showStatus({active:false});
+  });
+
+  document.querySelector("#runJs")?.addEventListener("click", async () => {
+    const code=document.querySelector("#jsConsoleInput").value.trim();
+    const output=document.querySelector("#jsConsoleOutput");
+    if(!code){output.textContent="Enter JavaScript first.";return}
+    output.textContent="Running…";
+    try {
+      const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+      const result = await new AsyncFunction("return (" + code + ")")();
+      output.textContent = result === undefined ? "✓ Executed." : typeof result === "string" ? result : JSON.stringify(result,null,2);
+    } catch (error) {
+      try {
+        const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+        const result = await new AsyncFunction(code)();
+        output.textContent = result === undefined ? "✓ Executed." : String(result);
+      } catch (secondError) {
+        output.textContent = "Error: " + secondError.message;
+      }
+    }
+  });
+
+  document.querySelector("#clearJs")?.addEventListener("click",()=>{
+    document.querySelector("#jsConsoleInput").value="";
+    document.querySelector("#jsConsoleOutput").textContent="Ready.";
+  });
+
+  sb.channel("site-status-broadcast")
+    .on("postgres_changes",{event:"UPDATE",schema:"public",table:"site_status",filter:"id=eq.global"},payload=>showStatus(payload.new))
+    .subscribe();
+
+  loadStatus();
+  checkAdmin();
+  sb.auth.onAuthStateChange(()=>checkAdmin());
+})();
