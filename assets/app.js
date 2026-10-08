@@ -2,8 +2,42 @@
   "use strict";
 
   const $ = (s) => document.querySelector(s);
-  const $$ = (s) => [...document.querySelectorAll(s)];
+  const $ = (s) => [...document.querySelectorAll(s)];
+  const getConsent = () => document.cookie.split("; ").find(x=>x.startsWith("solance_cookie_consent="))?.split("=")[1] || "";
+  const hasOptionalConsent = () => getConsent() === "optional";
+  const setConsent = (value) => {
+    document.cookie = "solance_cookie_consent=" + value + "; Max-Age=31536000; Path=/; SameSite=Lax";
+  };
+  const hasTerms = () => document.cookie.split("; ").some(x=>x.startsWith("solance_terms_accepted=1"));
+  const acceptTermsCookie = () => { document.cookie = "solance_terms_accepted=1; Max-Age=31536000; Path=/; SameSite=Lax"; };
   $("#year").textContent = new Date().getFullYear();
+
+  // First-visit terms gate and cookie consent.
+  const termsGate = $("#termsGate");
+  const termsAccepted = $("#termsAccepted");
+  const acceptTerms = $("#acceptTerms");
+  const cookieBanner = $("#cookieBanner");
+  const showConsent = () => {
+    if (!hasTerms()) termsGate.hidden = false;
+    if (!getConsent()) cookieBanner.hidden = false;
+  };
+  termsAccepted?.addEventListener("change", () => { acceptTerms.disabled = !termsAccepted.checked; });
+  acceptTerms?.addEventListener("click", () => {
+    acceptTermsCookie();
+    termsGate.hidden = true;
+    showConsent();
+  });
+  $("#cookiesAccept")?.addEventListener("click", () => {
+    setConsent("optional");
+    cookieBanner.hidden = true;
+    const theme = localStorage.getItem("solance-theme") || "dark";
+    applyTheme(theme, false);
+  });
+  $("#cookiesEssential")?.addEventListener("click", () => {
+    setConsent("essential");
+    cookieBanner.hidden = true;
+  });
+  showConsent();
 
   // Supabase browser client — publishable key only.
   const SUPABASE_URL = "https://xedydjesbfvquypyomsm.supabase.co";
@@ -65,14 +99,14 @@
   const applyTheme=(theme,persist=true)=>{
     const light=theme==="light"||(theme==="system"&&matchMedia("(prefers-color-scheme: light)").matches);
     document.body.classList.toggle("light",light);
-    if(persist)localStorage.setItem("solance-theme",theme);
+    if(persist && hasOptionalConsent())localStorage.setItem("solance-theme",theme);
   };
   const savedTheme=localStorage.getItem("solance-theme")||"dark";
   themeSelect.value=savedTheme; applyTheme(savedTheme);
   themeSelect.addEventListener("change",e=>applyTheme(e.target.value));
   const motionToggle=$("#motionToggle");
   const setMotion=()=>{const reduced=motionToggle.checked;document.documentElement.classList.toggle("reduce-motion",reduced);localStorage.setItem("solance-reduce-motion",reduced?"1":"0")};
-  motionToggle.checked=localStorage.getItem("solance-reduce-motion")==="1"; motionToggle.addEventListener("change",setMotion); setMotion();
+  motionToggle.checked=hasOptionalConsent() && localStorage.getItem("solance-reduce-motion")==="1"; motionToggle.addEventListener("change",setMotion); setMotion();
   matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{if((localStorage.getItem("solance-theme")||"dark")==="system")applyTheme("system",false)});
 
   const authEmail=$("#authEmail"), authPassword=$("#authPassword"), authName=$("#authName"), authNameField=$("#authNameField");
