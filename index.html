@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Apply to join the Azure Creator Program and get support building your own projects.">
+  <meta name="theme-color" content="#080b12">
+  <title>Azure Creator Program</title>
+  <style>
+    :root{
+      --bg:#080b12;--panel:#101521;--panel-2:#151c2a;--text:#f5f7fb;--muted:#9ca7ba;
+      --line:#263044;--accent:#7c5cff;--accent-2:#27d3a2;--danger:#ff7184;
+      --shadow:0 24px 80px rgba(0,0,0,.38);--radius:22px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 15% 0%,rgba(124,92,255,.16),transparent 32rem),radial-gradient(circle at 85% 10%,rgba(39,211,162,.08),transparent 28rem),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+    a{color:inherit}.container{width:min(1120px,calc(100% - 40px));margin:auto}
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand{font-weight:800;letter-spacing:-.03em;text-decoration:none;display:flex;gap:10px;align-items:center}
+    .brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--accent),#a88cff);display:grid;place-items:center;font-weight:900;box-shadow:0 8px 28px rgba(124,92,255,.3)}
+    .nav-link{color:var(--muted);text-decoration:none;font-size:.94rem}.nav-link:hover{color:var(--text)}
+    .hero{padding:94px 0 78px;display:grid;grid-template-columns:1.2fr .8fr;gap:64px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#c6bcff;background:rgba(124,92,255,.1);border:1px solid rgba(124,92,255,.25);padding:7px 11px;border-radius:999px;font-size:.82rem;font-weight:700}
+    h1{font-size:clamp(3rem,7vw,5.9rem);line-height:.96;letter-spacing:-.065em;margin:20px 0}
+    .gradient{background:linear-gradient(100deg,#fff 20%,#aa98ff 62%,#68e9c4);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:1.15rem;color:var(--muted);max-width:680px;margin:0 0 30px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}.button{border:0;border-radius:13px;padding:13px 18px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:.95rem}
+    .primary{background:var(--text);color:#090b10}.secondary{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text)}
+    .hero-card{background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.09);padding:28px;border-radius:28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero-card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(124,92,255,.22);filter:blur(40px);right:-80px;top:-70px}
+    .card-label{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:800}.card-title{font-size:1.55rem;font-weight:800;margin:9px 0 22px}
+    .mini-list{display:grid;gap:13px}.mini{display:flex;gap:12px;align-items:flex-start}.icon{width:30px;height:30px;border-radius:10px;background:rgba(124,92,255,.13);display:grid;place-items:center;flex:none}.mini b{display:block;font-size:.92rem}.mini span{color:var(--muted);font-size:.82rem}
+    section{padding:76px 0}.section-head{max-width:700px;margin-bottom:30px}.section-head h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.045em;margin:0 0 13px}.section-head p{color:var(--muted);margin:0}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px}.feature h3{margin:16px 0 7px;font-size:1.1rem}.feature p{margin:0;color:var(--muted);font-size:.94rem}
+    .apply{background:linear-gradient(180deg,rgba(124,92,255,.08),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:30px;padding:clamp(24px,5vw,48px);box-shadow:var(--shadow)}
+    form{display:grid;gap:19px}.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:grid;gap:7px}label{font-size:.88rem;font-weight:750}label span{color:var(--muted);font-weight:500}
+    input,select,textarea{width:100%;border:1px solid var(--line);background:#0b1019;color:var(--text);border-radius:12px;padding:13px 14px;font:inherit;outline:none;transition:border-color .2s,box-shadow .2s}
+    input:focus,select:focus,textarea:focus{border-color:#8066ff;box-shadow:0 0 0 3px rgba(124,92,255,.13)}textarea{min-height:130px;resize:vertical}select{appearance:auto}
+    .check{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:.82rem}.check input{width:auto;margin-top:5px}.check a{color:#c7bfff}
+    .submit{width:100%;background:linear-gradient(135deg,#fff,#ddd8ff);color:#090b10;margin-top:2px}.submit:hover{transform:translateY(-1px)}
+    .fine{color:var(--muted);font-size:.78rem;margin:0;text-align:center}.required{color:#c6bcff}
+    .success{display:none;text-align:center;padding:42px 15px}.success.show{display:block}.success .big{font-size:3rem}.success h3{font-size:1.7rem;margin:7px 0}.success p{color:var(--muted)}
+    .contact{display:flex;justify-content:space-between;align-items:center;gap:20px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:25px 28px}
+    .contact h3{margin:0 0 4px}.contact p{margin:0;color:var(--muted)}footer{padding:34px 0 45px;color:#687286;font-size:.8rem;border-top:1px solid rgba(255,255,255,.06)}
+    .hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden}
+    @media(max-width:820px){.hero{grid-template-columns:1fr;padding-top:65px;gap:38px}.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}.contact{align-items:flex-start;flex-direction:column}nav{height:66px}.nav-link{display:none}}
+  </style>
+</head>
+<body>
+  <header class="container">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="#"><span class="brand-mark">A</span> Azure Creator Program</a>
+      <a class="nav-link" href="#apply">Apply to join →</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div>
+        <div class="eyebrow">✦ Build with other creators</div>
+        <h1>Turn your idea into a <span class="gradient">real project.</span></h1>
+        <p class="lead">The Azure Creator Program connects people who want to build with people who can help. Get feedback, find collaborators, learn new skills, and move your project forward.</p>
+        <div class="actions">
+          <a class="button primary" href="#apply">Start an application</a>
+          <a class="button secondary" href="#how-it-works">How it works</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Program overview">
+        <div class="card-label">What you get</div>
+        <div class="card-title">Support for your next build.</div>
+        <div class="mini-list">
+          <div class="mini"><div class="icon">↗</div><div><b>Project feedback</b><span>Talk through ideas, roadblocks and next steps.</span></div></div>
+          <div class="mini"><div class="icon">⌘</div><div><b>People to build with</b><span>Meet creators with different skills and interests.</span></div></div>
+          <div class="mini"><div class="icon">✓</div><div><b>A place to grow</b><span>Share progress and learn from the wider program.</span></div></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="how-it-works" class="container">
+      <div class="section-head">
+        <h2>A program built around your idea.</h2>
+        <p>You don't need a finished product. Tell us what you want to make, what you need help with, and what you want to learn.</p>
+      </div>
+      <div class="grid">
+        <article class="feature"><div class="icon">01</div><h3>Tell us about you</h3><p>Give us a first name or nickname and your Discord username so we know how to reach you.</p></article>
+        <article class="feature"><div class="icon">02</div><h3>Describe the project</h3><p>Explain what you're building, what you'd like to do with it, and where you are right now.</p></article>
+        <article class="feature"><div class="icon">03</div><h3>Get connected</h3><p>We'll review your application and contact you through Discord with the next steps.</p></article>
+      </div>
+    </section>
+
+    <section id="apply" class="container">
+      <div class="apply">
+        <div class="section-head">
+          <h2>Apply to join.</h2>
+          <p>Be as specific as you can. There are no wrong project ideas — we want to understand what you're excited to build.</p>
+        </div>
+
+        <form name="creator-application" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="creator-form">
+          <input type="hidden" name="form-name" value="creator-application">
+          <p class="hp"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+
+          <div class="row">
+            <div class="field">
+              <label for="name">Name / nickname <span class="required">*</span></label>
+              <input id="name" name="name" type="text" placeholder="What should we call you?" required autocomplete="nickname">
+            </div>
+            <div class="field">
+              <label for="discord">Discord username <span class="required">*</span></label>
+              <input id="discord" name="discord" type="text" placeholder="e.g. azurecreator" required autocomplete="off">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="age">Age range <span class="required">*</span></label>
+              <select id="age" name="age-range" required>
+                <option value="" selected disabled>Select one</option>
+                <option>Under 13</option>
+                <option>13–15</option>
+                <option>16–17</option>
+                <option>18+</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="role">What do you want to do? <span class="required">*</span></label>
+              <select id="role" name="interest" required>
+                <option value="" selected disabled>Choose an area</option>
+                <option>Websites / web apps</option>
+                <option>Games</option>
+                <option>Discord / community projects</option>
+                <option>Content / media</option>
+                <option>Programming / software</option>
+                <option>Design / branding</option>
+                <option>Something else</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="project">What would you like to build? <span class="required">*</span></label>
+            <textarea id="project" name="project-idea" placeholder="Tell us about your project or idea. What is it, who is it for, and what would success look like?" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="goals">What would you like to do with the program? <span class="required">*</span></label>
+            <textarea id="goals" name="program-goals" placeholder="For example: find collaborators, get coding help, improve an idea, learn a new skill, get feedback, or launch something." required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="help">What support are you looking for? <span>Optional</span></label>
+            <textarea id="help" name="support-needed" placeholder="What are you stuck on, or what kind of people/skills would help you most?"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="experience">What experience do you already have? <span>Optional</span></label>
+            <textarea id="experience" name="experience" placeholder="Anything you've built, skills you have, or things you're currently learning."></textarea>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" name="contact-consent" value="yes" required>
+            <span>I understand that the program team will use my application details to review my application and contact me through Discord.</span>
+          </label>
+
+          <button class="button submit" type="submit">Send application →</button>
+          <p class="fine">Please don't include passwords, private keys, home addresses, or other sensitive information.</p>
+        </form>
+
+        <div class="success" id="success" role="status" aria-live="polite">
+          <div class="big">✓</div>
+          <h3>Application sent.</h3>
+          <p>Thanks for applying. We'll review what you shared and contact you through Discord if we'd like to continue.</p>
+          <a class="button secondary" href="#">Back to the top</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="contact">
+        <div><h3>Have a question first?</h3><p>You can contact the program team before applying.</p></div>
+        <a class="button secondary" href="mailto:azureytsupport@gmail.com">Email the team</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Azure Creator Program · Built for creators, by creators.</div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const form = document.getElementById("creator-form");
+    const success = document.getElementById("success");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = form.querySelector("button[type=submit]");
+      button.disabled = true;
+      button.textContent = "Sending…";
+      try {
+        const response = await fetch("/", {
+          method: "POST",
+          headers: {"Content-Type": "application/x-www-form-urlencoded"},
+          body: new URLSearchParams(new FormData(form)).toString()
+        });
+        if (!response.ok) throw new Error("Submission failed");
+        form.style.display = "none";
+        success.classList.add("show");
+        success.scrollIntoView({behavior:"smooth",block:"center"});
+      } catch {
+        button.disabled = false;
+        button.textContent = "Send application →";
+        alert("We couldn't send your application. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
