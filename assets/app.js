@@ -40,7 +40,6 @@
       button.innerHTML = original;
       const fallback = confirm("The quick submission could not connect to the form service. Try the standard submission instead?");
       if (fallback) {
-        form.removeEventListener("submit", arguments.callee);
         HTMLFormElement.prototype.submit.call(form);
       }
     }
