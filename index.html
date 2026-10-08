@@ -44,13 +44,20 @@
     .contact h3{margin:0 0 4px}.contact p{margin:0;color:var(--muted)}footer{padding:34px 0 45px;color:#687286;font-size:.8rem;border-top:1px solid rgba(255,255,255,.06)}
     .hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden}
     @media(max-width:820px){.hero{grid-template-columns:1fr;padding-top:65px;gap:38px}.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}.contact{align-items:flex-start;flex-direction:column}nav{height:66px}.nav-link{display:none}}
-  .brand{font-size:.96rem}.hero{padding:104px 0 88px}.eyebrow{letter-spacing:.08em;text-transform:uppercase}.hero-card{backdrop-filter:blur(14px)}.feature{transition:transform .2s,border-color .2s}.feature:hover{transform:translateY(-3px);border-color:#34405a}.apply{background:linear-gradient(180deg,rgba(124,92,255,.10),rgba(255,255,255,.02))}.submit{box-shadow:0 12px 30px rgba(124,92,255,.12)}</style>
+  .brand{font-size:.96rem}.hero{padding:104px 0 88px}.eyebrow{letter-spacing:.08em;text-transform:uppercase}.hero-card{backdrop-filter:blur(14px)}.feature{transition:transform .2s,border-color .2s}.feature:hover{transform:translateY(-3px);border-color:#34405a}.apply{background:linear-gradient(180deg,rgba(124,92,255,.10),rgba(255,255,255,.02))}.submit{box-shadow:0 12px 30px rgba(124,92,255,.12)}
+    .top-actions{display:flex;align-items:center;gap:10px}.nav-button{border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);border-radius:11px;padding:9px 12px;font-weight:750;cursor:pointer}.nav-button:hover{background:rgba(255,255,255,.08)}
+    .settings-panel{position:fixed;inset:0;background:rgba(2,5,10,.62);backdrop-filter:blur(8px);display:none;align-items:flex-start;justify-content:flex-end;padding:82px 24px 24px;z-index:50}.settings-panel.open{display:flex}
+    .settings-card{width:min(390px,100%);background:#101521;border:1px solid #2b3447;border-radius:20px;box-shadow:0 30px 100px rgba(0,0,0,.5);padding:24px}.settings-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.settings-head h3{margin:0;font-size:1.2rem}.close{background:none;border:0;color:var(--muted);font-size:1.5rem;cursor:pointer}.setting{padding:16px 0;border-top:1px solid var(--line)}.setting:first-of-type{border-top:0}.setting-title{font-weight:800;margin-bottom:4px}.setting-copy{color:var(--muted);font-size:.82rem;margin-bottom:10px}.setting select{padding:10px}.toggle{display:flex;align-items:center;justify-content:space-between;gap:15px}.toggle input{width:20px;height:20px}
+    .auth-panel{position:fixed;inset:0;background:rgba(2,5,10,.7);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}.auth-panel.open{display:flex}.auth-card{width:min(430px,100%);background:#101521;border:1px solid #2b3447;border-radius:22px;box-shadow:0 30px 100px rgba(0,0,0,.55);padding:28px}.auth-card h2{margin:0 0 6px}.auth-card p{color:var(--muted);font-size:.9rem}.auth-note{margin-top:16px;padding:12px;border:1px solid rgba(124,92,255,.25);background:rgba(124,92,255,.08);border-radius:12px;color:#cfc8ff!important;font-size:.8rem!important}
+    body.light{--bg:#f5f7fb;--panel:#fff;--panel-2:#eef1f7;--text:#111827;--muted:#5f6b7c;--line:#dce2ec;--accent:#6754e8}.light input,.light select,.light textarea{background:#fff}.light .hero-card,.light .settings-card,.light .auth-card{background:#fff}.light{background:radial-gradient(circle at 15% 0%,rgba(124,92,255,.10),transparent 32rem),#f5f7fb}.light .secondary{background:#fff}
+    @media(max-width:820px){.top-actions .nav-button:first-child{display:none}.settings-panel{padding:76px 12px 12px}.settings-card{width:100%}}
+</style>
 </head>
 <body>
   <header class="container">
     <nav aria-label="Main navigation">
       <a class="brand" href="#"><span class="brand-mark">A</span> Solance Creator Program</a>
-      <a class="nav-link" href="#apply">Apply to join →</a>
+      <div class="top-actions"><button class="nav-button" id="signInBtn" type="button">Sign in</button><button class="nav-button" id="settingsBtn" type="button" aria-label="Open settings">⚙ Settings</button><a class="nav-link" href="#apply">Apply →</a></div>
     </nav>
   </header>
 
@@ -212,6 +219,40 @@
         alert("We couldn't send your application. Please try again.");
       }
     });
-  </script>
-</body>
+  
+    const settingsPanel=document.getElementById("settingsPanel"),authPanel=document.getElementById("authPanel");
+    const openSettings=()=>{settingsPanel.classList.add("open");settingsPanel.setAttribute("aria-hidden","false")};
+    const closeSettings=()=>{settingsPanel.classList.remove("open");settingsPanel.setAttribute("aria-hidden","true")};
+    const openAuth=()=>{authPanel.classList.add("open");authPanel.setAttribute("aria-hidden","false")};
+    const closeAuth=()=>{authPanel.classList.remove("open");authPanel.setAttribute("aria-hidden","true")};
+    document.getElementById("settingsBtn").addEventListener("click",openSettings);
+    document.getElementById("closeSettings").addEventListener("click",closeSettings);
+    document.getElementById("signInBtn").addEventListener("click",openAuth);
+    document.getElementById("closeAuth").addEventListener("click",closeAuth);
+    [settingsPanel,authPanel].forEach(p=>p.addEventListener("click",e=>{if(e.target===p){p===settingsPanel?closeSettings():closeAuth()}}));
+    const applyTheme=t=>{document.body.classList.toggle("light",t==="light"||(t==="system"&&matchMedia("(prefers-color-scheme:light)").matches));localStorage.setItem("solance-theme",t)};
+    const savedTheme=localStorage.getItem("solance-theme")||"dark";document.getElementById("themeSelect").value=savedTheme;applyTheme(savedTheme);
+    document.getElementById("themeSelect").addEventListener("change",e=>applyTheme(e.target.value));
+    const motion=document.getElementById("motionToggle");motion.checked=localStorage.getItem("solance-reduce-motion")==="1";
+    const setMotion=()=>{document.documentElement.style.scrollBehavior=motion.checked?"auto":"smooth";document.body.style.setProperty("--transition-duration",motion.checked?"0s":".2s");localStorage.setItem("solance-reduce-motion",motion.checked?"1":"0")};motion.addEventListener("change",setMotion);setMotion();
+    document.getElementById("authSubmit").addEventListener("click",()=>alert("Sign-in is shown as a ready UI, but secure authentication still needs the Solance Supabase project connected."));
+</script>
+
+<div class="settings-panel" id="settingsPanel" aria-hidden="true">
+  <div class="settings-card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="settings-head"><h3 id="settingsTitle">Settings</h3><button class="close" id="closeSettings" aria-label="Close settings">×</button></div>
+    <div class="setting"><div class="setting-title">Appearance</div><div class="setting-copy">Choose how Solance looks on your device.</div><select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></div>
+    <div class="setting"><div class="setting-title">Reduce motion</div><div class="setting-copy">Minimise animations and transitions.</div><div class="toggle"><span>Accessibility</span><input id="motionToggle" type="checkbox"></div></div>
+    <div class="setting"><div class="setting-title">Application privacy</div><div class="setting-copy">Applications are submitted through Netlify Forms and reviewed by the Solance program team.</div></div>
+  </div>
+</div>
+<div class="auth-panel" id="authPanel" aria-hidden="true">
+  <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="settings-head"><div><h2 id="authTitle">Welcome back</h2><p>Sign in to your Solance account.</p></div><button class="close" id="closeAuth" aria-label="Close sign in">×</button></div>
+    <div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email"></div>
+    <div class="field" style="margin-top:14px"><label for="authPassword">Password</label><input id="authPassword" type="password" placeholder="Your password" autocomplete="current-password"></div>
+    <button class="button submit" style="margin-top:18px" type="button" id="authSubmit">Sign in</button>
+    <p class="auth-note">Account authentication is ready for a Supabase connection. Once connected, this form can securely support sign-in, account creation, password resets, and member-only project features.</p>
+  </div>
+</div></body>
 </html>
