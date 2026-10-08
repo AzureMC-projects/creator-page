@@ -1,43 +1,156 @@
-// Solance Creator Program interactions
+(() => {
+  "use strict";
 
-    document.getElementById("year").textContent = new Date().getFullYear();
-    const form = document.getElementById("creator-form");
-    const success = document.getElementById("success");
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const button = form.querySelector("button[type=submit]");
-      button.disabled = true;
-      button.textContent = "Sending…";
-      try {
-        const response = await fetch("/", {
-          method: "POST",
-          headers: {"Content-Type": "application/x-www-form-urlencoded"},
-          body: new URLSearchParams(new FormData(form)).toString()
-        });
-        if (!response.ok) throw new Error("Submission failed");
-        form.style.display = "none";
-        success.classList.add("show");
-        success.scrollIntoView({behavior:"smooth",block:"center"});
-      } catch {
-        button.disabled = false;
-        button.textContent = "Send application →";
-        alert("We couldn't send your application. Please try again.");
-      }
+  const $ = (selector) => document.querySelector(selector);
+  const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+  $("#year").textContent = new Date().getFullYear();
+
+  // Netlify application form
+  const form = $("#creator-form");
+  const success = $("#success");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.textContent = "Sending…";
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+
+      form.hidden = true;
+      success.classList.add("show");
+      success.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch {
+      button.disabled = false;
+      button.textContent = "Send application →";
+      alert("We couldn't send your application. Please try again.");
+    }
+  });
+
+  // Modal controls
+  const settingsPanel = $("#settingsPanel");
+  const authPanel = $("#authPanel");
+
+  const setModal = (panel, open) => {
+    panel.classList.toggle("open", open);
+    panel.setAttribute("aria-hidden", String(!open));
+    document.body.classList.toggle("modal-open", open);
+  };
+
+  const openSettings = () => setModal(settingsPanel, true);
+  const closeSettings = () => setModal(settingsPanel, false);
+  const openAuth = () => setModal(authPanel, true);
+  const closeAuth = () => setModal(authPanel, false);
+
+  $("#settingsBtn").addEventListener("click", openSettings);
+  $("#closeSettings").addEventListener("click", closeSettings);
+  $("#signInBtn").addEventListener("click", openAuth);
+  $("#closeAuth").addEventListener("click", closeAuth);
+
+  [settingsPanel, authPanel].forEach((panel) => {
+    panel.addEventListener("click", (event) => {
+      if (event.target === panel) setModal(panel, false);
     });
-  
-    const settingsPanel=document.getElementById("settingsPanel"),authPanel=document.getElementById("authPanel");
-    const openSettings=()=>{settingsPanel.classList.add("open");settingsPanel.setAttribute("aria-hidden","false")};
-    const closeSettings=()=>{settingsPanel.classList.remove("open");settingsPanel.setAttribute("aria-hidden","true")};
-    const openAuth=()=>{authPanel.classList.add("open");authPanel.setAttribute("aria-hidden","false")};
-    const closeAuth=()=>{authPanel.classList.remove("open");authPanel.setAttribute("aria-hidden","true")};
-    document.getElementById("settingsBtn").addEventListener("click",openSettings);
-    document.getElementById("closeSettings").addEventListener("click",closeSettings);
-    document.getElementById("signInBtn").addEventListener("click",openAuth);
-    document.getElementById("closeAuth").addEventListener("click",closeAuth);
-    [settingsPanel,authPanel].forEach(p=>p.addEventListener("click",e=>{if(e.target===p){p===settingsPanel?closeSettings():closeAuth()}}));
-    const applyTheme=t=>{document.body.classList.toggle("light",t==="light"||(t==="system"&&matchMedia("(prefers-color-scheme:light)").matches));localStorage.setItem("solance-theme",t)};
-    const savedTheme=localStorage.getItem("solance-theme")||"dark";document.getElementById("themeSelect").value=savedTheme;applyTheme(savedTheme);
-    document.getElementById("themeSelect").addEventListener("change",e=>applyTheme(e.target.value));
-    const motion=document.getElementById("motionToggle");motion.checked=localStorage.getItem("solance-reduce-motion")==="1";
-    const setMotion=()=>{document.documentElement.style.scrollBehavior=motion.checked?"auto":"smooth";document.body.style.setProperty("--transition-duration",motion.checked?"0s":".2s");localStorage.setItem("solance-reduce-motion",motion.checked?"1":"0")};motion.addEventListener("change",setMotion);setMotion();
-    document.getElementById("authSubmit").addEventListener("click",()=>alert("Sign-in is shown as a ready UI, but secure authentication still needs the Solance Supabase project connected."));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    closeSettings();
+    closeAuth();
+  });
+
+  // Appearance settings
+  const themeSelect = $("#themeSelect");
+  const applyTheme = (theme, persist = true) => {
+    const isLight = theme === "light" ||
+      (theme === "system" && window.matchMedia("(prefers-color-scheme: light)").matches);
+
+    document.body.classList.toggle("light", isLight);
+    if (persist) localStorage.setItem("solance-theme", theme);
+  };
+
+  const savedTheme = localStorage.getItem("solance-theme") || "dark";
+  themeSelect.value = savedTheme;
+  applyTheme(savedTheme);
+
+  themeSelect.addEventListener("change", (event) => applyTheme(event.target.value));
+
+  const motionToggle = $("#motionToggle");
+  const setMotion = () => {
+    const reduced = motionToggle.checked;
+    document.documentElement.classList.toggle("reduce-motion", reduced);
+    localStorage.setItem("solance-reduce-motion", reduced ? "1" : "0");
+  };
+
+  motionToggle.checked = localStorage.getItem("solance-reduce-motion") === "1";
+  motionToggle.addEventListener("change", setMotion);
+  setMotion();
+
+  // Keep System theme synced if the OS preference changes.
+  window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
+    if ((localStorage.getItem("solance-theme") || "dark") === "system") applyTheme("system", false);
+  });
+
+  // Sign-in UI. Real authentication is deliberately not faked without a backend.
+  const authEmail = $("#authEmail");
+  const authPassword = $("#authPassword");
+  const authSubmit = $("#authSubmit");
+  const authMessage = $("#authMessage");
+  const authModeButtons = $$(".auth-mode");
+
+  const showAuthMessage = (message, type = "info") => {
+    authMessage.textContent = message;
+    authMessage.dataset.type = type;
+    authMessage.hidden = false;
+  };
+
+  authModeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      authModeButtons.forEach((item) => item.classList.toggle("active", item === button));
+      const create = button.dataset.mode === "signup";
+      $("#authTitle").textContent = create ? "Create your account" : "Welcome back";
+      $("#authCopy").textContent = create
+        ? "Create an account to keep your creator profile and future project activity in one place."
+        : "Sign in to your Solance account.";
+      authSubmit.textContent = create ? "Create account" : "Sign in";
+      authPassword.autocomplete = create ? "new-password" : "current-password";
+      authMessage.hidden = true;
+    });
+  });
+
+  $("#forgotPassword").addEventListener("click", () => {
+    if (!authEmail.value.trim()) {
+      authEmail.focus();
+      showAuthMessage("Enter your email address first, then use the password reset flow.", "error");
+      return;
+    }
+    showAuthMessage("Password reset will be enabled when the Solance Supabase authentication backend is connected.", "info");
+  });
+
+  authSubmit.addEventListener("click", () => {
+    const email = authEmail.value.trim();
+    const password = authPassword.value;
+
+    if (!email || !authEmail.validity.valid) {
+      authEmail.focus();
+      showAuthMessage("Please enter a valid email address.", "error");
+      return;
+    }
+
+    if (password.length < 8) {
+      authPassword.focus();
+      showAuthMessage("Your password should be at least 8 characters.", "error");
+      return;
+    }
+
+    showAuthMessage("The account UI is ready. Secure sign-in will be activated once the Supabase project is connected.", "info");
+  });
+})();
