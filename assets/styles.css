@@ -30,3 +30,18 @@
 .applications-closed #applicationPanel{position:relative}
 .applications-closed #applicationPanel:after{content:"Applications are currently closed";display:block;margin-top:18px;padding:14px;border:1px solid rgba(255,102,123,.25);border-radius:12px;background:rgba(255,102,123,.06);color:#ffb4bf;font-size:.74rem;font-weight:800;text-align:center}
 #heroApplyButton.disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
+
+.consent-backdrop{position:fixed;inset:0;z-index:100;background:rgba(2,3,6,.82);backdrop-filter:blur(16px);display:grid;place-items:center;padding:20px}
+.consent-backdrop[hidden],.cookie-banner[hidden]{display:none}
+.consent-card{width:min(520px,100%);padding:34px;border:1px solid #303746;border-radius:24px;background:#11141b;box-shadow:0 35px 120px rgba(0,0,0,.65)}
+.consent-kicker{font-size:.62rem;letter-spacing:.16em;font-weight:900;color:var(--accent);margin-bottom:14px}
+.consent-card h2{font-size:2.35rem;line-height:1;letter-spacing:-.06em;margin:0 0 12px}
+.consent-card p{color:var(--muted);font-size:.8rem;line-height:1.65}
+.consent-check{display:flex;gap:10px;align-items:flex-start;margin:24px 0;color:#aeb5c2;font-size:.75rem;font-weight:600}
+.consent-check input{width:17px;height:17px;flex:none}
+.consent-check a,.cookie-banner a{color:var(--accent);font-weight:800}
+.consent-card .button{width:100%}
+.cookie-banner{position:fixed;left:18px;right:18px;bottom:18px;z-index:95;display:flex;justify-content:space-between;align-items:center;gap:22px;padding:18px 20px;border:1px solid #303746;border-radius:18px;background:rgba(15,17,24,.96);backdrop-filter:blur(18px);box-shadow:0 25px 80px rgba(0,0,0,.5)}
+.cookie-banner strong{font-size:.85rem}.cookie-banner p{margin:4px 0 4px;color:var(--muted);font-size:.68rem;max-width:720px;line-height:1.5}.cookie-banner a{font-size:.66rem;text-decoration:none}
+.cookie-actions{display:flex;gap:8px;flex:none}.cookie-actions .button{white-space:nowrap}
+@media(max-width:700px){.cookie-banner{left:10px;right:10px;bottom:10px;display:block}.cookie-actions{margin-top:12px}.cookie-actions .button{flex:1}.consent-card{padding:26px}}
