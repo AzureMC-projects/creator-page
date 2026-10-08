@@ -3,172 +3,113 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Apply to join the Solance Creator Program and get support building your own projects.">
-  <meta name="theme-color" content="#080b12">
-  <title>Solance Creator Program</title>
+  <meta name="description" content="Apply to join the Solance Creator Program and turn your ideas into real projects.">
+  <meta name="theme-color" content="#08090d">
+  <title>Solance — Creator Program</title>
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
-  <header class="container">
-    <nav aria-label="Main navigation">
-      <a class="brand" href="#"><span class="brand-mark">A</span> Solance Creator Program</a>
-      <div class="top-actions"><button class="nav-button" id="signInBtn" type="button">Sign in</button><button class="nav-button" id="settingsBtn" type="button" aria-label="Open settings">⚙ Settings</button><a class="nav-link" href="#apply">Apply →</a></div>
+  <div class="site-glow glow-one"></div><div class="site-glow glow-two"></div>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="#top"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a>
+      <div class="nav-center"><a href="#program">Program</a><a href="#how-it-works">How it works</a><a href="#apply">Apply</a></div>
+      <div class="nav-actions">
+        <button class="nav-icon" id="settingsBtn" type="button" aria-label="Open settings">⚙</button>
+        <button class="nav-login" id="signInBtn" type="button">Sign in</button>
+      </div>
     </nav>
   </header>
 
-  <main>
-    <section class="container hero">
-      <div>
-        <div class="eyebrow">CREATOR PROGRAM · SOLANCE</div>
-        <h1>Turn your idea into a <span class="gradient">real project.</span></h1>
-        <p class="lead">The Solance Creator Program connects people who want to build with people who can help. Get feedback, find collaborators, learn new skills, and move your project forward.</p>
-        <div class="actions">
-          <a class="button primary" href="#apply">Start an application</a>
-          <a class="button secondary" href="#how-it-works">How it works</a>
+  <main id="top">
+    <section class="hero container" id="program">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="status-dot"></span> Applications are open</div>
+        <h1>Build something<br><span>worth making.</span></h1>
+        <p class="hero-lead">Solance is a creator program for people with ideas. Bring the project, find the right people, and get the support to take it further.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#apply">Apply to Solance <span>↗</span></a>
+          <a class="button ghost" href="#how-it-works">Explore the program</a>
         </div>
+        <div class="hero-proof"><div class="avatars"><i>✦</i><i>+</i><i>◈</i></div><span>For builders, designers, developers & creators.</span></div>
       </div>
-      <aside class="hero-card" aria-label="Program overview">
-        <div class="card-label">What you get</div>
-        <div class="card-title">A stronger path from idea to launch.</div>
-        <div class="mini-list">
-          <div class="mini"><div class="icon">↗</div><div><b>Project feedback</b><span>Talk through ideas, roadblocks and next steps.</span></div></div>
-          <div class="mini"><div class="icon">⌘</div><div><b>People to build with</b><span>Meet creators with different skills and interests.</span></div></div>
-          <div class="mini"><div class="icon">✓</div><div><b>A place to grow</b><span>Share progress and learn from the wider program.</span></div></div>
+      <div class="hero-visual">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="idea-card">
+          <div class="idea-top"><span>CREATOR / 001</span><span class="live">● LIVE</span></div>
+          <div class="idea-icon">✦</div>
+          <h2>Idea → Project</h2>
+          <p>Turn a rough concept into something people can actually use.</p>
+          <div class="idea-progress"><span></span></div>
+          <div class="idea-footer"><span>Direction</span><b>Moving forward</b></div>
         </div>
-      </aside>
-    </section>
-
-    <section id="how-it-works" class="container">
-      <div class="section-head">
-        <h2>Built around what you want to create.</h2>
-        <p>You don't need a finished product or a perfect plan. Tell us what you want to create, what you want to achieve, and where support would make the biggest difference.</p>
-      </div>
-      <div class="grid">
-        <article class="feature"><div class="icon">01</div><h3>Tell us about you</h3><p>Give us a first name or nickname and your Discord username so we know how to reach you.</p></article>
-        <article class="feature"><div class="icon">02</div><h3>Describe the project</h3><p>Explain what you're building, what you'd like to do with it, and where you are right now.</p></article>
-        <article class="feature"><div class="icon">03</div><h3>Get connected</h3><p>We'll review your application and, when appropriate, contact you through Discord with next steps.</p></article>
+        <div class="float-card float-one"><span>↗</span><div><b>Feedback</b><small>From other creators</small></div></div>
+        <div class="float-card float-two"><span>⌘</span><div><b>Collaborate</b><small>Find people to build with</small></div></div>
       </div>
     </section>
 
-    <section id="apply" class="container">
-      <div class="apply">
-        <div class="section-head">
-          <h2>Tell us what you're building.</h2>
-          <p>A thoughtful application helps us understand your goals and connect you with the right people and support.</p>
-        </div>
+    <section class="stats container">
+      <div><b>01</b><span>Bring your idea</span></div><div><b>02</b><span>Meet your people</span></div><div><b>03</b><span>Build & improve</span></div><div><b>04</b><span>Make it real</span></div>
+    </section>
 
-        <form name="creator-application" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="creator-form">
-          <input type="hidden" name="form-name" value="creator-application">
-          <p class="hp"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+    <section class="section container" id="how-it-works">
+      <div class="section-kicker">THE PROGRAM</div>
+      <div class="section-title-row"><h2>A place to <em>make progress.</em></h2><p>You don't need a finished product. You need a direction, curiosity, and a willingness to build.</p></div>
+      <div class="feature-grid">
+        <article class="feature-new"><span class="feature-number">01</span><div class="feature-symbol">◌</div><h3>Bring the idea</h3><p>Tell us what you want to make, who it is for, and what success looks like.</p></article>
+        <article class="feature-new featured"><span class="feature-number">02</span><div class="feature-symbol">↗</div><h3>Find support</h3><p>Get feedback, technical guidance, creative input, or collaborators who fit the project.</p></article>
+        <article class="feature-new"><span class="feature-number">03</span><div class="feature-symbol">✦</div><h3>Keep building</h3><p>Share progress, learn from others, solve roadblocks, and keep moving the project forward.</p></article>
+      </div>
+    </section>
 
-          <div class="row">
-            <div class="field">
-              <label for="name">Name / nickname <span class="required">*</span></label>
-              <input id="name" name="name" type="text" placeholder="What should we call you?" required autocomplete="nickname">
+    <section class="apply-section container" id="apply">
+      <div class="apply-shell">
+        <aside class="apply-side">
+          <div class="section-kicker">APPLICATION</div>
+          <h2>Let's hear<br><em>your idea.</em></h2>
+          <p>Give us enough context to understand what you're building and how the program can help.</p>
+          <div class="side-note"><span>◎</span><div><b>No perfect pitch required.</b><small>A clear, honest application is better than a polished one.</small></div></div>
+          <div class="side-note"><span>⌁</span><div><b>Discord is our contact.</b><small>Use a username you actively check.</small></div></div>
+          <div class="privacy-pill">🔒 Don't share passwords or private keys.</div>
+        </aside>
+
+        <div class="form-panel">
+          <div class="form-heading"><div><span>YOUR APPLICATION</span><h3>Tell us about you.</h3></div><span class="required-note">* Required</span></div>
+          <form name="creator-application" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="creator-form">
+            <input type="hidden" name="form-name" value="creator-application">
+            <p class="hp"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+            <div class="form-section-label">ABOUT YOU</div>
+            <div class="row">
+              <div class="field"><label for="name">Name / nickname <b>*</b></label><input id="name" name="name" type="text" placeholder="What should we call you?" required autocomplete="nickname"></div>
+              <div class="field"><label for="discord">Discord username <b>*</b></label><input id="discord" name="discord" type="text" placeholder="@username" required autocomplete="off"></div>
             </div>
-            <div class="field">
-              <label for="discord">Discord username <span class="required">*</span></label>
-              <input id="discord" name="discord" type="text" placeholder="e.g. azurecreator" required autocomplete="off">
+            <div class="row">
+              <div class="field"><label for="age">Age range <b>*</b></label><select id="age" name="age-range" required><option value="" selected disabled>Choose one</option><option>Under 13</option><option>13–15</option><option>16–17</option><option>18+</option><option>Prefer not to say</option></select></div>
+              <div class="field"><label for="role">Primary focus <b>*</b></label><select id="role" name="interest" required><option value="" selected disabled>Choose one</option><option>Websites / web apps</option><option>Games</option><option>Discord / community projects</option><option>Content / media</option><option>Programming / software</option><option>Design / branding</option><option>Something else</option></select></div>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="field">
-              <label for="age">Age range <span class="required">*</span></label>
-              <select id="age" name="age-range" required>
-                <option value="" selected disabled>Select one</option>
-                <option>Under 13</option>
-                <option>13–15</option>
-                <option>16–17</option>
-                <option>18+</option>
-                <option>Prefer not to say</option>
-              </select>
+            <div class="form-section-label">YOUR PROJECT</div>
+            <div class="field"><label for="project">What would you like to build? <b>*</b></label><textarea id="project" name="project-idea" placeholder="What are you creating? Who is it for? What would make it successful?" required></textarea></div>
+            <div class="field"><label for="goals">What would you like to do with Solance? <b>*</b></label><textarea id="goals" name="program-goals" placeholder="Find collaborators, get technical guidance, learn, improve an idea, launch something..." required></textarea></div>
+            <div class="row">
+              <div class="field"><label for="help">What support do you need? <span>Optional</span></label><textarea id="help" name="support-needed" placeholder="Where are you stuck?"></textarea></div>
+              <div class="field"><label for="experience">What have you made before? <span>Optional</span></label><textarea id="experience" name="experience" placeholder="Projects, skills, tools, experience..."></textarea></div>
             </div>
-            <div class="field">
-              <label for="role">Primary focus <span class="required">*</span></label>
-              <select id="role" name="interest" required>
-                <option value="" selected disabled>Select your focus</option>
-                <option>Websites / web apps</option>
-                <option>Games</option>
-                <option>Discord / community projects</option>
-                <option>Content / media</option>
-                <option>Programming / software</option>
-                <option>Design / branding</option>
-                <option>Something else</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="project">What would you like to build? <span class="required">*</span></label>
-            <textarea id="project" name="project-idea" placeholder="What are you creating? Who is it for, and what would a successful outcome look like?" required></textarea>
-          </div>
-
-          <div class="field">
-            <label for="goals">What would you like to do with the program? <span class="required">*</span></label>
-            <textarea id="goals" name="program-goals" placeholder="For example: find collaborators, get technical guidance, improve an idea, learn a skill, get feedback, or take a project toward launch." required></textarea>
-          </div>
-
-          <div class="field">
-            <label for="help">What support are you looking for? <span>Optional</span></label>
-            <textarea id="help" name="support-needed" placeholder="What are you currently stuck on, and what kind of people or expertise would help most?"></textarea>
-          </div>
-
-          <div class="field">
-            <label for="experience">What experience do you already have? <span>Optional</span></label>
-            <textarea id="experience" name="experience" placeholder="Share relevant projects, skills, tools, or experience you already have."></textarea>
-          </div>
-
-          <label class="check">
-            <input type="checkbox" name="contact-consent" value="yes" required>
-            <span>I understand that the Solance Creator Program team will use the information in this application to review it and contact me through Discord.</span>
-          </label>
-
-          <button class="button submit" type="submit">Send application →</button>
-          <p class="fine">Please don't include passwords, private keys, home addresses, or other sensitive information.</p>
-        </form>
-
-        <div class="success" id="success" role="status" aria-live="polite">
-          <div class="big">✓</div>
-          <h3>Application received.</h3>
-          <p>Thanks for applying. We'll review your details and contact you through Discord if we'd like to move forward.</p>
-          <a class="button secondary" href="#">Back to the top</a>
+            <label class="check"><input type="checkbox" name="contact-consent" value="yes" required><span>I understand Solance will use this information to review my application and contact me through Discord. <b>*</b></span></label>
+            <button class="button submit" type="submit"><span>Submit application</span><span>↗</span></button>
+            <p class="fine">By applying, you agree not to submit passwords, private keys, home addresses, or other sensitive information.</p>
+          </form>
+          <div class="success" id="success" role="status" aria-live="polite"><div class="success-mark">✓</div><h3>You're on the list.</h3><p>Your application was received. We'll review it and contact you through Discord if we'd like to move forward.</p><a class="button ghost" href="#top">Back to top</a></div>
         </div>
       </div>
     </section>
 
-    <section class="container">
-      <div class="contact">
-        <div><h3>Questions before you apply?</h3><p>Reach out to the program team if you want to ask something before submitting an application.</p></div>
-        <a class="button secondary" href="mailto:azureytsupport@gmail.com">Contact Solance</a>
-      </div>
-    </section>
+    <section class="contact-new container"><div><span class="section-kicker">NEED HELP?</span><h2>Have a question before applying?</h2></div><a class="button primary" href="mailto:azureytsupport@gmail.com">Email the team ↗</a></section>
   </main>
 
-  <footer>
-    <div class="container">© <span id="year"></span> Solance Creator Program · A collaborative program for ambitious creators.</div>
-  </footer>
+  <footer><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a><span>Creator Program · <span id="year"></span></span></div></footer>
 
   <script src="/assets/app.js" defer></script>
-
-<div class="settings-panel" id="settingsPanel" aria-hidden="true">
-  <div class="settings-card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-    <div class="settings-head"><h3 id="settingsTitle">Settings</h3><button class="close" id="closeSettings" aria-label="Close settings">×</button></div>
-    <div class="setting"><div class="setting-title">Appearance</div><div class="setting-copy">Choose how Solance looks on your device.</div><select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></div>
-    <div class="setting"><div class="setting-title">Reduce motion</div><div class="setting-copy">Minimise animations and transitions.</div><div class="toggle"><span>Accessibility</span><input id="motionToggle" type="checkbox"></div></div>
-    <div class="setting"><div class="setting-title">Application privacy</div><div class="setting-copy">Applications are submitted through Netlify Forms and reviewed by the Solance program team.</div></div>
-  </div>
-</div>
-<div class="auth-panel" id="authPanel" aria-hidden="true">
-  <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-    <div class="settings-head"><div><h2 id="authTitle">Welcome back</h2><p id="authCopy">Sign in to your Solance account.</p></div><button class="close" id="closeAuth" aria-label="Close sign in">×</button></div>
-    <div class="auth-modes"><button class="auth-mode active" type="button" data-mode="signin">Sign in</button><button class="auth-mode" type="button" data-mode="signup">Create account</button></div>
-    <div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email"></div>
-    <div class="field" style="margin-top:14px"><label for="authPassword">Password</label><input id="authPassword" type="password" placeholder="At least 8 characters" autocomplete="current-password"></div>
-    <div class="auth-actions"><button type="button" class="text-button" id="forgotPassword">Forgot password?</button></div>
-    <button class="button submit" style="margin-top:18px" type="button" id="authSubmit">Sign in</button>
-    <div class="auth-message" id="authMessage" hidden></div>
-    <p class="auth-note">The interface is wired and ready. Secure account authentication will be connected when the Supabase project is available.</p>
-  </div>
-</div></body>
+  <div class="settings-panel" id="settingsPanel" aria-hidden="true"><div class="settings-card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle"><div class="settings-head"><h3 id="settingsTitle">Settings</h3><button class="close" id="closeSettings" aria-label="Close settings">×</button></div><div class="setting"><div class="setting-title">Appearance</div><div class="setting-copy">Choose how Solance looks.</div><select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></div><div class="setting"><div class="setting-title">Reduce motion</div><div class="setting-copy">Minimise animations and transitions.</div><div class="toggle"><span>Accessibility</span><input id="motionToggle" type="checkbox"></div></div><div class="setting"><div class="setting-title">Application privacy</div><div class="setting-copy">Applications are reviewed by the Solance program team.</div></div></div></div>
+  <div class="auth-panel" id="authPanel" aria-hidden="true"><div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle"><div class="settings-head"><div><h2 id="authTitle">Welcome back</h2><p id="authCopy">Sign in to your Solance account.</p></div><button class="close" id="closeAuth" aria-label="Close sign in">×</button></div><div class="auth-modes"><button class="auth-mode active" type="button" data-mode="signin">Sign in</button><button class="auth-mode" type="button" data-mode="signup">Create account</button></div><div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field" style="margin-top:14px"><label for="authPassword">Password</label><input id="authPassword" type="password" placeholder="At least 8 characters" autocomplete="current-password"></div><div class="auth-actions"><button type="button" class="text-button" id="forgotPassword">Forgot password?</button></div><button class="button submit" style="margin-top:18px" type="button" id="authSubmit">Sign in</button><div class="auth-message" id="authMessage" hidden></div><p class="auth-note">Secure account authentication will be enabled once the Supabase project is connected.</p></div></div>
+</body>
 </html>
