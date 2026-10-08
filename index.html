@@ -6,7 +6,7 @@
   <meta name="description" content="Apply to join the Solance Creator Program and turn your ideas into real projects.">
   <meta name="theme-color" content="#08090d">
   <title>Solance — Creator Program</title>
-  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <div class="site-glow glow-one"></div><div class="site-glow glow-two"></div>
@@ -15,7 +15,7 @@
       <a class="brand" href="#top"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a>
       <div class="nav-center"><a href="#program">Program</a><a href="#how-it-works">How it works</a><a href="#apply">Apply</a></div>
       <div class="nav-actions">
-        <a class="nav-icon" id="settingsBtn" href="/settings.html" aria-label="Open settings">⚙</a>
+        <a class="nav-icon" id="settingsBtn" href="settings.html" aria-label="Open settings">⚙</a>
         <button class="nav-login" id="signInBtn" type="button">Sign in</button>
       </div>
     </nav>
@@ -76,7 +76,7 @@
 
         <div class="form-panel" id="applicationPanel">
           <div class="form-heading"><div><span>YOUR APPLICATION</span><h3 id="applicationHeading">Tell us about you.</h3></div><span class="required-note">* Required</span></div>
-          <form name="creator-application" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="creator-form">
+          <form name="creator-application" method="POST" id="creator-form">
             <input type="hidden" name="form-name" value="creator-application">
             <p class="hp"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
             <div class="form-section-label">ABOUT YOU</div>
@@ -107,11 +107,11 @@
     <section class="contact-new container"><div><span class="section-kicker">NEED HELP?</span><h2>Have a question before applying?</h2></div><a class="button primary" href="mailto:azureytsupport@gmail.com">Email the team ↗</a></section>
   </main>
 
-  <footer><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a><span>Creator Program · <a href="/terms.html">Terms of Service</a> · <span id="year"></span></span></div></footer>
+  <footer><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a><span>Creator Program · <a href="terms.html">Terms of Service</a> · <span id="year"></span></span></div></footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="/assets/app.js" defer></script>
-  <script src="/assets/status.js" defer></script>
+  <script src="assets/app.js" defer></script>
+  <script src="assets/status.js" defer></script>
   <div class="settings-panel" id="settingsPanel" aria-hidden="true"><div class="settings-card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle"><div class="settings-head"><h3 id="settingsTitle">Settings</h3><button class="close" id="closeSettings" aria-label="Close settings">×</button></div><div class="settings-tabs"><button class="settings-tab active" data-settings-tab="general" type="button">General</button><button class="settings-tab" data-settings-tab="management" id="managementTab" type="button" hidden>Management</button></div><section class="settings-view active" id="settingsGeneral"><div class="setting"><div class="setting-title">Appearance</div><div class="setting-copy">Choose how Solance looks.</div><select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></div><div class="setting"><div class="setting-title">Reduce motion</div><div class="setting-copy">Minimise animations and transitions.</div><div class="toggle"><span>Accessibility</span><input id="motionToggle" type="checkbox"></div></div><div class="setting"><div class="setting-title">Application privacy</div><div class="setting-copy">Applications are reviewed by the Solance program team.</div></div></section><section class="settings-view" id="settingsManagement" hidden><div class="management-badge">SOLANCE MANAGEMENT</div><div class="setting"><div class="setting-title">Site status</div><div class="setting-copy">Broadcast a shutdown, bug, or announcement to everyone currently viewing the site.</div><select id="siteStatusKind"><option value="maintenance">Shut down / maintenance</option><option value="bug">Known bug</option><option value="announcement">Announcement</option></select><input id="siteStatusTitle" placeholder="Status title"><textarea id="siteStatusMessage" placeholder="Explain what visitors should know…"></textarea><div class="management-actions"><button class="button submit" type="button" id="publishStatus">Broadcast status</button><button class="button ghost" type="button" id="clearStatus">Clear broadcast</button></div><div class="auth-message" id="managementMessage" hidden></div></div><div class="setting"><div class="setting-title">JavaScript console</div><div class="setting-copy">Runs JavaScript in your current browser tab. It cannot access Supabase server secrets.</div><textarea id="jsConsoleInput" class="js-console" spellcheck="false" placeholder="// Example: document.body.style.zoom = '1.02'"></textarea><div class="management-actions"><button class="button submit" type="button" id="runJs">Run JavaScript</button><button class="button ghost" type="button" id="clearJs">Clear</button></div><pre class="js-console-output" id="jsConsoleOutput">Ready.</pre></div></section></div></div><div class="auth-panel" id="authPanel" aria-hidden="true"><div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle"><div class="settings-head"><div><h2 id="authTitle">Welcome back</h2><p id="authCopy">Sign in to your Solance account.</p></div><button class="close" id="closeAuth" aria-label="Close sign in">×</button></div><div class="auth-modes"><button class="auth-mode active" type="button" data-mode="signin">Sign in</button><button class="auth-mode" type="button" data-mode="signup">Create account</button></div><div class="field" id="authNameField" hidden><label for="authName">Name / nickname</label><input id="authName" type="text" placeholder="What should we call you?" autocomplete="nickname"></div><div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email"></div><div class="field" style="margin-top:14px"><label for="authPassword">Password</label><input id="authPassword" type="password" placeholder="At least 8 characters" autocomplete="current-password"></div><div class="auth-actions"><button type="button" class="text-button" id="forgotPassword">Forgot password?</button></div><button class="button submit" style="margin-top:18px" type="button" id="authSubmit">Sign in</button><div class="auth-message" id="authMessage" hidden></div><p class="auth-note" id="authNote">Your account keeps your profile and future creator activity connected to you.</p></div></div>
 </body>
 </html>
