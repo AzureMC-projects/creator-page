@@ -15,7 +15,7 @@
     return supabaseClient;
   };
 
-  // Netlify application form
+  // GitHub Pages application form — submissions go directly to Supabase.
   const form = $("#creator-form");
   const success = $("#success");
   form.addEventListener("submit", async (event) => {
@@ -25,20 +25,30 @@
     button.disabled = true;
     button.innerHTML = "<span>Sending…</span><span>↗</span>";
     try {
-      const body = new URLSearchParams();
-      new FormData(form).forEach((value, key) => body.append(key, value));
-      const response = await fetch(form.getAttribute("action") || "/", {
-        method: "POST", headers: {"Content-Type":"application/x-www-form-urlencoded"},
-        body: body.toString(), credentials:"same-origin"
+      const sb = startSupabase();
+      if (!sb) throw new Error("Application service is unavailable. Please refresh and try again.");
+      const values = Object.fromEntries(new FormData(form).entries());
+      const {data:{session}} = await sb.auth.getSession();
+      const {error} = await sb.from("applications").insert({
+        user_id: session?.user?.id || null,
+        name: values.name,
+        discord_username: values.discord,
+        age_range: values["age-range"],
+        interest: values.interest,
+        project_idea: values["project-idea"],
+        program_goals: values["program-goals"],
+        support_needed: values["support-needed"] || null,
+        experience: values.experience || null,
+        contact_consent: values["contact-consent"] === "yes"
       });
-      if (!response.ok) throw new Error("Netlify returned " + response.status);
-      form.hidden = true; success.classList.add("show");
+      if (error) throw error;
+      form.hidden = true;
+      success.classList.add("show");
       success.scrollIntoView({behavior:"smooth",block:"center"});
     } catch (error) {
-      button.disabled=false; button.innerHTML=original;
-      if (confirm("The quick submission could not connect to the form service. Try the standard submission instead?")) {
-        HTMLFormElement.prototype.submit.call(form);
-      }
+      button.disabled = false;
+      button.innerHTML = original;
+      alert(error.message || "Your application could not be submitted. Please try again.");
     }
   });
 
