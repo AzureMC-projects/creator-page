@@ -43,3 +43,17 @@
     .auth-panel{position:fixed;inset:0;background:rgba(2,5,10,.7);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}.auth-panel.open{display:flex}.auth-card{width:min(430px,100%);background:#101521;border:1px solid #2b3447;border-radius:22px;box-shadow:0 30px 100px rgba(0,0,0,.55);padding:28px}.auth-card h2{margin:0 0 6px}.auth-card p{color:var(--muted);font-size:.9rem}.auth-note{margin-top:16px;padding:12px;border:1px solid rgba(124,92,255,.25);background:rgba(124,92,255,.08);border-radius:12px;color:#cfc8ff!important;font-size:.8rem!important}
     body.light{--bg:#f5f7fb;--panel:#fff;--panel-2:#eef1f7;--text:#111827;--muted:#5f6b7c;--line:#dce2ec;--accent:#6754e8}.light input,.light select,.light textarea{background:#fff}.light .hero-card,.light .settings-card,.light .auth-card{background:#fff}.light{background:radial-gradient(circle at 15% 0%,rgba(124,92,255,.10),transparent 32rem),#f5f7fb}.light .secondary{background:#fff}
     @media(max-width:820px){.top-actions .nav-button:first-child{display:none}.settings-panel{padding:76px 12px 12px}.settings-card{width:100%}}
+
+
+body.modal-open{overflow:hidden}
+.auth-modes{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:13px;margin:16px 0 18px}
+.auth-mode{border:0;background:transparent;color:var(--muted);border-radius:9px;padding:9px;font:inherit;font-weight:800;cursor:pointer}
+.auth-mode.active{background:var(--panel-2);color:var(--text);box-shadow:0 3px 12px rgba(0,0,0,.14)}
+.auth-actions{display:flex;justify-content:flex-end;margin-top:9px}
+.text-button{border:0;background:none;color:#b9adff;font:inherit;font-size:.82rem;font-weight:750;cursor:pointer;padding:0}
+.text-button:hover{text-decoration:underline}
+.auth-message{margin-top:14px;padding:11px 12px;border-radius:11px;border:1px solid rgba(124,92,255,.25);background:rgba(124,92,255,.08);color:#d8d1ff;font-size:.82rem}
+.auth-message[data-type="error"]{border-color:rgba(255,113,132,.3);background:rgba(255,113,132,.08);color:#ffb4bf}
+.auth-message[hidden]{display:none}
+.reduce-motion *, .reduce-motion *::before, .reduce-motion *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+@media(max-width:520px){.auth-card{padding:22px}.auth-modes{margin-top:12px}}
