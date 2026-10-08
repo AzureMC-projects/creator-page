@@ -161,11 +161,14 @@
 </div>
 <div class="auth-panel" id="authPanel" aria-hidden="true">
   <div class="auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-    <div class="settings-head"><div><h2 id="authTitle">Welcome back</h2><p>Sign in to your Solance account.</p></div><button class="close" id="closeAuth" aria-label="Close sign in">×</button></div>
+    <div class="settings-head"><div><h2 id="authTitle">Welcome back</h2><p id="authCopy">Sign in to your Solance account.</p></div><button class="close" id="closeAuth" aria-label="Close sign in">×</button></div>
+    <div class="auth-modes"><button class="auth-mode active" type="button" data-mode="signin">Sign in</button><button class="auth-mode" type="button" data-mode="signup">Create account</button></div>
     <div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email"></div>
-    <div class="field" style="margin-top:14px"><label for="authPassword">Password</label><input id="authPassword" type="password" placeholder="Your password" autocomplete="current-password"></div>
+    <div class="field" style="margin-top:14px"><label for="authPassword">Password</label><input id="authPassword" type="password" placeholder="At least 8 characters" autocomplete="current-password"></div>
+    <div class="auth-actions"><button type="button" class="text-button" id="forgotPassword">Forgot password?</button></div>
     <button class="button submit" style="margin-top:18px" type="button" id="authSubmit">Sign in</button>
-    <p class="auth-note">Account authentication is ready for a Supabase connection. Once connected, this form can securely support sign-in, account creation, password resets, and member-only project features.</p>
+    <div class="auth-message" id="authMessage" hidden></div>
+    <p class="auth-note">The interface is wired and ready. Secure account authentication will be connected when the Supabase project is available.</p>
   </div>
 </div></body>
 </html>
