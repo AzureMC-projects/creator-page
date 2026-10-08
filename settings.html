@@ -6,7 +6,7 @@
   <meta name="description" content="Solance settings and management.">
   <meta name="theme-color" content="#08090d">
   <title>Settings — Solance</title>
-  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css">
   <style>
     body{min-height:100vh}
     .settings-page{padding:125px 0 80px}
@@ -40,9 +40,9 @@
 <body>
   <header class="site-header">
     <nav class="nav container">
-      <a class="brand" href="/"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a>
-      <div class="nav-center"><a href="/#program">Program</a><a href="/#how-it-works">How it works</a><a href="/#apply">Apply</a></div>
-      <div class="nav-actions"><a class="nav-icon" href="/settings.html" aria-label="Settings">⚙</a><a class="nav-login" href="/">Back to site</a></div>
+      <a class="brand" href="index.html"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a>
+      <div class="nav-center"><a href="index.html#program">Program</a><a href="index.html#how-it-works">How it works</a><a href="index.html#apply">Apply</a></div>
+      <div class="nav-actions"><a class="nav-icon" href="settings.html" aria-label="Settings">⚙</a><a class="nav-login" href="index.html">Back to site</a></div>
     </nav>
   </header>
 
@@ -130,7 +130,7 @@ document.body.style.zoom = '1.02'"></textarea>
     const render=row=>{const closed=!!row?.active&&row.kind==="maintenance";document.querySelector("#previewText").textContent=closed?"Applications are closed":"Applications are open";document.querySelector("#previewDot").classList.toggle("closed",closed)};
     const load=async()=>{const {data}=await sb.from("site_status").select("active,kind,title,message").eq("id","global").maybeSingle();render(data);if(data){document.querySelector("#siteStatusKind").value=data.kind;document.querySelector("#siteStatusTitle").value=data.title||"";document.querySelector("#siteStatusMessage").value=data.message||""}};
     const auth=async()=>{const {data:{session}}=await sb.auth.getSession();const signed=!!session?.user;document.querySelector("#accountText").textContent=signed?("Signed in as "+session.user.email):"You are not signed in. Sign in from the main site to access management.";document.querySelector("#signOut").hidden=!signed;const admin=signed&&session.user.id===SOLANCE_ID;document.querySelector("#managementNav").hidden=!admin;document.querySelector("#userManagementBlock").hidden=!admin;if(admin) await load()};
-    document.querySelector("#signOut").addEventListener("click",async()=>{await sb.auth.signOut();location.href="/"});
+    document.querySelector("#signOut").addEventListener("click",async()=>{await sb.auth.signOut();location.href="index.html"});
     document.querySelector("#publishStatus").addEventListener("click",async()=>{const kind=document.querySelector("#siteStatusKind").value;const title=document.querySelector("#siteStatusTitle").value.trim()||(kind==="maintenance"?"Applications are temporarily closed":kind==="bug"?"Known issue with Solance":"Solance update");const message=document.querySelector("#siteStatusMessage").value.trim();const {error}=await sb.from("site_status").update({active:true,kind,title,message,updated_at:new Date().toISOString()}).eq("id","global");if(error)toast(error.message,true);else{toast("Status broadcast live.");render({active:true,kind})}});
     document.querySelector("#clearStatus").addEventListener("click",async()=>{const {error}=await sb.from("site_status").update({active:false,updated_at:new Date().toISOString()}).eq("id","global");if(error)toast(error.message,true);else{toast("Applications are open again.");render({active:false})}});
 
