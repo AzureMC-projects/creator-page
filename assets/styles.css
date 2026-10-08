@@ -25,3 +25,8 @@
 .light .settings-tabs,.light .auth-modes{background:#eef0e9}
 .light .settings-tab.active,.light .auth-mode.active{background:#fff}
 @media(max-width:620px){.site-alert-inner{width:min(100% - 28px);padding:10px 0;align-items:flex-start;flex-direction:column;gap:3px}}
+
+.status-dot.closed{background:#ff667b!important;box-shadow:0 0 0 4px rgba(255,102,123,.09)!important}
+.applications-closed #applicationPanel{position:relative}
+.applications-closed #applicationPanel:after{content:"Applications are currently closed";display:block;margin-top:18px;padding:14px;border:1px solid rgba(255,102,123,.25);border-radius:12px;background:rgba(255,102,123,.06);color:#ffb4bf;font-size:.74rem;font-weight:800;text-align:center}
+#heroApplyButton.disabled{opacity:.55;cursor:not-allowed;pointer-events:none}
