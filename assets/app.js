@@ -191,8 +191,7 @@
       managementTab.hidden = true;
       return false;
     }
-    const {data,error} = await sb.rpc("is_management_admin");
-    const admin = !error && data === true;
+    const admin = session.user.id === "045d9505-44a6-4e6f-ac2b-cf0c0afcec20";
     managementTab.hidden = !admin;
     return admin;
   };
