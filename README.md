@@ -39,3 +39,14 @@ If Netlify is connected to this GitHub repository, pushes to the default branch 
 - Contact consent
 
 The form intentionally asks for a nickname rather than a full legal name.
+
+
+## Frontend structure
+
+The UI is split into maintainable files:
+
+- `index.html` — page structure and content
+- `assets/styles.css` — visual design, responsive layout, themes, modals
+- `assets/app.js` — form submission, settings, theme persistence, modal controls, and authentication UI
+
+The sign-in interface is intentionally not a fake authentication system. Secure account login needs a Supabase project and publishable client configuration; no passwords are stored in the browser or repository.
