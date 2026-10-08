@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Solance settings and management.">
+  <meta name="theme-color" content="#08090d">
+  <title>Settings — Solance</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <style>
+    body{min-height:100vh}
+    .settings-page{padding:125px 0 80px}
+    .settings-layout{display:grid;grid-template-columns:220px 1fr;gap:18px;max-width:900px;margin:0 auto}
+    .settings-sidebar,.settings-main{background:var(--surface);border:1px solid var(--line);border-radius:20px}
+    .settings-sidebar{padding:10px;height:max-content}
+    .settings-main{padding:30px}
+    .settings-side-btn{width:100%;border:0;background:transparent;color:var(--muted);text-align:left;padding:12px 13px;border-radius:11px;font:inherit;font-size:.76rem;font-weight:800;cursor:pointer}
+    .settings-side-btn.active{background:var(--surface-2);color:var(--text)}
+    .settings-section[hidden]{display:none}
+    .settings-section h1{font-size:2.2rem;letter-spacing:-.05em;margin:0}
+    .settings-section>p{color:var(--muted);font-size:.78rem;margin:7px 0 28px}
+    .settings-block{padding:20px 0;border-top:1px solid var(--line)}
+    .settings-block h3{margin:0 0 5px;font-size:.9rem}
+    .settings-block p{color:var(--muted);font-size:.73rem;line-height:1.55;margin:0 0 13px}
+    .management-status{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);margin-bottom:16px}
+    .status-preview{display:flex;align-items:center;gap:9px;font-size:.76rem;font-weight:800}
+    .status-preview-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(183,255,98,.08)}
+    .status-preview-dot.closed{background:#ff667b;box-shadow:0 0 0 5px rgba(255,102,123,.08)}
+    .settings-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+    .settings-actions .button{flex:1}
+    .settings-actions .ghost{border:1px solid var(--line);background:transparent;color:var(--text)}
+    .management-note{font-size:.65rem;color:var(--muted);margin-top:10px}
+    .console{min-height:190px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;line-height:1.5}
+    .console-output{min-height:60px;max-height:220px;overflow:auto;margin:12px 0 0;padding:12px;border:1px solid var(--line);border-radius:11px;background:#090b0f;color:#aeb7c5;white-space:pre-wrap;font: .68rem/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+    .settings-toast{margin-top:12px;padding:10px;border-radius:10px;background:rgba(183,255,98,.08);color:#d5e7b7;font-size:.72rem}
+    .settings-toast.error{background:rgba(255,102,123,.08);color:#ffb4bf}
+    @media(max-width:720px){.settings-layout{grid-template-columns:1fr}.settings-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:5px}.settings-main{padding:22px}.settings-page{padding-top:100px}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="/"><span class="brand-mark">S</span><span>solance<span class="brand-dot">.</span></span></a>
+      <div class="nav-center"><a href="/#program">Program</a><a href="/#how-it-works">How it works</a><a href="/#apply">Apply</a></div>
+      <div class="nav-actions"><a class="nav-icon" href="/settings.html" aria-label="Settings">⚙</a><a class="nav-login" href="/">Back to site</a></div>
+    </nav>
+  </header>
+
+  <main class="settings-page">
+    <div class="settings-layout container">
+      <aside class="settings-sidebar">
+        <button class="settings-side-btn active" data-view="general">General</button>
+        <button class="settings-side-btn" data-view="management" id="managementNav" hidden>Management</button>
+      </aside>
+
+      <section class="settings-main">
+        <section class="settings-section" id="generalView">
+          <h1>Settings</h1>
+          <p>Personalise your Solance experience.</p>
+          <div class="settings-block">
+            <h3>Appearance</h3><p>Choose how the site looks.</p>
+            <select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select>
+          </div>
+          <div class="settings-block">
+            <h3>Accessibility</h3><p>Reduce animation and transitions throughout the site.</p>
+            <div class="toggle"><span>Reduce motion</span><input id="motionToggle" type="checkbox"></div>
+          </div>
+          <div class="settings-block">
+            <h3>Account</h3><p id="accountText">Checking your account…</p>
+            <button class="button ghost" id="signOut" type="button" hidden>Sign out</button>
+          </div>
+        </section>
+
+        <section class="settings-section" id="managementView" hidden>
+          <h1>Management</h1>
+          <p>Control public site status and creator applications.</p>
+          <div class="management-status">
+            <div class="status-preview"><span class="status-preview-dot" id="previewDot"></span><span id="previewText">Applications are open</span></div>
+          </div>
+          <div class="settings-block">
+            <h3>Application availability</h3>
+            <p>Turning on shutdown mode changes the public status to red and closes the application form across the entire site.</p>
+            <select id="siteStatusKind"><option value="maintenance">Shut down applications</option><option value="bug">Known bug</option><option value="announcement">Announcement</option></select>
+            <input id="siteStatusTitle" placeholder="Status title">
+            <textarea id="siteStatusMessage" placeholder="Tell visitors what is happening…"></textarea>
+            <div class="settings-actions">
+              <button class="button submit" id="publishStatus" type="button">Broadcast status</button>
+              <button class="button ghost" id="clearStatus" type="button">Re-open applications</button>
+            </div>
+            <div class="management-note">Changes are broadcast live to visitors using Supabase Realtime.</div>
+            <div class="settings-toast" id="managementMessage" hidden></div>
+          </div>
+          <div class="settings-block">
+            <h3>JavaScript console</h3>
+            <p>Run frontend JavaScript in this browser tab. This does not expose server secrets.</p>
+            <textarea class="console" id="jsConsoleInput" spellcheck="false" placeholder="// Example:
+document.body.style.zoom = '1.02'"></textarea>
+            <div class="settings-actions">
+              <button class="button submit" id="runJs" type="button">Run JavaScript</button>
+              <button class="button ghost" id="clearJs" type="button">Clear</button>
+            </div>
+            <pre class="console-output" id="jsConsoleOutput">Ready.</pre>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const URL="https://xedydjesbfvquypyomsm.supabase.co", KEY="sb_publishable_FPeDOtPmcmKOzpSZmRsSJQ_V2PW6Cou";
+    const sb=window.supabase.createClient(URL,KEY);
+    const SOLANCE_ID="045d9505-44a6-4e6f-ac2b-cf0c0afcec20";
+    const nav=document.querySelectorAll(".settings-side-btn"), views={general:document.querySelector("#generalView"),management:document.querySelector("#managementView")};
+    nav.forEach(b=>b.addEventListener("click",()=>{nav.forEach(x=>x.classList.toggle("active",x===b));Object.entries(views).forEach(([k,v])=>v.hidden=b.dataset.view!==k)}));
+
+    const theme=document.querySelector("#themeSelect"), motion=document.querySelector("#motionToggle");
+    const applyTheme=t=>{document.body.classList.toggle("light",t==="light"||(t==="system"&&matchMedia("(prefers-color-scheme:light)").matches));localStorage.setItem("solance-theme",t)};
+    theme.value=localStorage.getItem("solance-theme")||"dark"; applyTheme(theme.value); theme.addEventListener("change",e=>applyTheme(e.target.value));
+    motion.checked=localStorage.getItem("solance-reduce-motion")==="1"; motion.addEventListener("change",()=>{document.documentElement.classList.toggle("reduce-motion",motion.checked);localStorage.setItem("solance-reduce-motion",motion.checked?"1":"0")});
+    document.documentElement.classList.toggle("reduce-motion",motion.checked);
+
+    const toast=(s,err=false)=>{const el=document.querySelector("#managementMessage");el.textContent=s;el.className="settings-toast"+(err?" error":"");el.hidden=false};
+    const render=row=>{const closed=!!row?.active&&row.kind==="maintenance";document.querySelector("#previewText").textContent=closed?"Applications are closed":"Applications are open";document.querySelector("#previewDot").classList.toggle("closed",closed)};
+    const load=async()=>{const {data}=await sb.from("site_status").select("active,kind,title,message").eq("id","global").maybeSingle();render(data);if(data){document.querySelector("#siteStatusKind").value=data.kind;document.querySelector("#siteStatusTitle").value=data.title||"";document.querySelector("#siteStatusMessage").value=data.message||""}};
+    const auth=async()=>{const {data:{session}}=await sb.auth.getSession();const signed=!!session?.user;document.querySelector("#accountText").textContent=signed?("Signed in as "+session.user.email):"You are not signed in. Sign in from the main site to access management.";document.querySelector("#signOut").hidden=!signed;const admin=signed&&session.user.id===SOLANCE_ID;document.querySelector("#managementNav").hidden=!admin;if(admin) await load()};
+    document.querySelector("#signOut").addEventListener("click",async()=>{await sb.auth.signOut();location.href="/"});
+    document.querySelector("#publishStatus").addEventListener("click",async()=>{const kind=document.querySelector("#siteStatusKind").value;const title=document.querySelector("#siteStatusTitle").value.trim()||(kind==="maintenance"?"Applications are temporarily closed":kind==="bug"?"Known issue with Solance":"Solance update");const message=document.querySelector("#siteStatusMessage").value.trim();const {error}=await sb.from("site_status").update({active:true,kind,title,message,updated_at:new Date().toISOString()}).eq("id","global");if(error)toast(error.message,true);else{toast("Status broadcast live.");render({active:true,kind})}});
+    document.querySelector("#clearStatus").addEventListener("click",async()=>{const {error}=await sb.from("site_status").update({active:false,updated_at:new Date().toISOString()}).eq("id","global");if(error)toast(error.message,true);else{toast("Applications are open again.");render({active:false})}});
+    document.querySelector("#runJs").addEventListener("click",async()=>{const code=document.querySelector("#jsConsoleInput").value.trim(),out=document.querySelector("#jsConsoleOutput");if(!code){out.textContent="Enter JavaScript first.";return}try{const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor;let result;try{result=await new AsyncFunction("return ("+code+")")()}catch(_){result=await new AsyncFunction(code)()}out.textContent=result===undefined?"✓ Executed.":typeof result==="string"?result:JSON.stringify(result,null,2)}catch(e){out.textContent="Error: "+e.message}});
+    document.querySelector("#clearJs").addEventListener("click",()=>{document.querySelector("#jsConsoleInput").value="";document.querySelector("#jsConsoleOutput").textContent="Ready."});
+    sb.channel("settings-status").on("postgres_changes",{event:"UPDATE",schema:"public",table:"site_status",filter:"id=eq.global"},p=>render(p.new)).subscribe();
+    auth();
+  });
+  </script>
+</body>
+</html>
