@@ -13,25 +13,36 @@
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const button = form.querySelector('button[type="submit"]');
+    const original = button.innerHTML;
     button.disabled = true;
-    button.textContent = "Sending…";
+    button.innerHTML = "<span>Sending…</span><span>↗</span>";
 
     try {
-      const response = await fetch("/", {
+      const body = new URLSearchParams();
+      new FormData(form).forEach((value, key) => body.append(key, value));
+
+      const response = await fetch(form.getAttribute("action") || "/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(new FormData(form)).toString()
+        body: body.toString(),
+        credentials: "same-origin"
       });
 
-      if (!response.ok) throw new Error("Submission failed");
+      if (!response.ok) throw new Error("Netlify returned " + response.status);
 
       form.hidden = true;
       success.classList.add("show");
       success.scrollIntoView({ behavior: "smooth", block: "center" });
-    } catch {
+    } catch (error) {
+      // If an AJAX request is blocked by the current browser/network, let the
+      // browser perform the normal Netlify form POST instead of losing the application.
       button.disabled = false;
-      button.textContent = "Send application →";
-      alert("We couldn't send your application. Please try again.");
+      button.innerHTML = original;
+      const fallback = confirm("The quick submission could not connect to the form service. Try the standard submission instead?");
+      if (fallback) {
+        form.removeEventListener("submit", arguments.callee);
+        HTMLFormElement.prototype.submit.call(form);
+      }
     }
   });
 
